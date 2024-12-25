@@ -8,10 +8,6 @@ apis:
       - FN: ''
         url: ''
         email: ''
-    overlays:
-      - url: >-
-          overlays/https://listening.api.npr.org/v2/swagger.json-openapi-search.yml
-        type: APIs.io Search
     description: Audio recommendations tailored to a user's preferences.
   - aid: npr:station
     name: Station
@@ -20,7 +16,6 @@ apis:
       - FN: ''
         url: ''
         email: ''
-    overlays: []
     description: NPR Station information.
   - aid: npr:identity
     name: Identity
@@ -29,7 +24,6 @@ apis:
       - FN: ''
         url: ''
         email: ''
-    overlays: []
     description: User management API.
   - aid: npr:authorization
     name: Authorization
@@ -38,10 +32,6 @@ apis:
       - FN: ''
         url: ''
         email: ''
-    overlays:
-      - url: >-
-          overlays/https://authorization.api.npr.org/v2/swagger.json-openapi-search.yml
-        type: APIs.io Search
     description: API Authorization.
 name: NPR
 tags:
