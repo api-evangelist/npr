@@ -1,65 +1,63 @@
 aid: npr
-url: https://raw.githubusercontent.com/api-search/news/main/_apis/npr/apis.md
-apis:
-  - aid: npr:listening
-    name: NPR Listening
-    tags: []
-    contact:
-      - FN: ''
-        url: ''
-        email: ''
-    overlays:
-      - url: >-
-
-          overlays/https://listening.api.npr.org/v2/swagger.json-openapi-search.yml
-        type: APIs.io Search
-    description: Audio recommendations tailored to a user's preferences.
-  - aid: npr:station
-    name: NPR Station
-    tags: []
-    contact:
-      - FN: ''
-        url: ''
-        email: ''
-    overlays: []
-    description: NPR Station information.
-  - aid: npr:identity
-    name: NPR Identity
-    tags: []
-    contact:
-      - FN: ''
-        url: ''
-        email: ''
-    overlays: []
-    description: User management API.
-  - aid: npr:authorization
-    name: NPR Authorization
-    tags: []
-    contact:
-      - FN: ''
-        url: ''
-        email: ''
-    overlays:
-      - url: >-
-
-          overlays/https://authorization.api.npr.org/v2/swagger.json-openapi-search.yml
-        type: APIs.io Search
-    description: API Authorization.
 name: NPR
+description: >-
+  National Public Radio (NPR) APIs. The APIs support station finding,
+  authentication, user management, and listening with audio recommendations
+  tailored to a user's preferences.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - News
   - Radio
-type: Contract
-access: 3rd-Party
-created: 2024/04/14
-modified: '2025-01-02'
-position: Consuming
-description: |-
-
-  National Public Radio (NPR) APIs. The APIs support station finding,
-  authentication, user management and listening.
+  - Media
+url: https://raw.githubusercontent.com/api-evangelist/npr/refs/heads/main/apis.yml
+created: '2024-04-14'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis:
+  - aid: npr:listening
+    name: NPR Listening
+    description: Audio recommendations tailored to a user's preferences.
+    humanURL: https://listening.api.npr.org/v2/swagger.json
+    tags:
+      - Listening
+      - Audio
+    properties:
+      - type: Documentation
+        url: https://dev.npr.org/
+  - aid: npr:station
+    name: NPR Station
+    description: NPR Station information.
+    humanURL: https://dev.npr.org/
+    tags:
+      - Stations
+    properties:
+      - type: Documentation
+        url: https://dev.npr.org/
+  - aid: npr:identity
+    name: NPR Identity
+    description: User management API.
+    humanURL: https://dev.npr.org/
+    tags:
+      - Identity
+      - Users
+    properties:
+      - type: Documentation
+        url: https://dev.npr.org/
+  - aid: npr:authorization
+    name: NPR Authorization
+    description: API Authorization.
+    humanURL: https://authorization.api.npr.org/v2/swagger.json
+    tags:
+      - Authorization
+    properties:
+      - type: Documentation
+        url: https://dev.npr.org/
+common:
+  - type: Website
+    url: https://www.npr.org/
+  - type: Documentation
+    url: https://dev.npr.org/
 maintainers:
-  - FN: Steven Willmott
-    url: http://timewarp.com
-    email: steve@timewarp.io
-specificationVersion: '0.18'
+  - FN: Kin Lane
+    email: kin@apievangelist.com
