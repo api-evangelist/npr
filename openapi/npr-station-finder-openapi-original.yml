@@ -17,7 +17,7 @@ paths:
   /v3/stations:
     get:
       tags:
-        - stationfinder
+        - Stationfinder
       summary: NPR List stations close to you or filter by search criteria
       description: |-
         This endpoint has two main use cases:
@@ -185,7 +185,7 @@ paths:
   /v3/stations/{stationId}:
     get:
       tags:
-        - stationfinder
+        - Stationfinder
       summary: NPR Retrieve metadata for the station with the given numeric ID
       description: |-
         This endpoint retrieves information about a given station, based on its numeric ID, which is consistent across all of NPR's APIs.
@@ -1008,3 +1008,5 @@ components:
             listening.readonly: See your NPR One listening history and get audio recommendations.
             listening.write: "Record that you have heard, marked as interesting, and/or skipped NPR One stories in order to personalize future audio recommendations."
             localactivation: Connect you with your local NPR member station for communication purposes.
+tags:
+  - name: Stationfinder

@@ -17,7 +17,7 @@ paths:
   /v2/token:
     post:
       tags:
-        - authorization
+        - Authorization
       summary: NPR Create a new OAuth2 access token
       description: |-
         Please be aware that the required parameters are contingent on the `grant_type` that you select.
@@ -121,7 +121,7 @@ paths:
   /v2/authorize:
     get:
       tags:
-        - authorization
+        - Authorization
       summary: NPR Show a web-based login/signup form to a user
       description: |-
         If the parameters passed to this endpoint are correct, it will redirect to `npr.org/oauth2/login` for the user to complete the sign-in.
@@ -228,7 +228,7 @@ paths:
   /v2/device:
     post:
       tags:
-        - authorization
+        - Authorization
       summary: NPR Initiate an OAuth2 login flow for limited input devices
       description: |-
         This flow should only be used by clients who cannot show a native webview or do not have advanced input controls. It is an alternative to `GET /v2/authorize`.
@@ -294,7 +294,7 @@ paths:
   /v2/token/revoke:
     post:
       tags:
-        - authorization
+        - Authorization
       summary: NPR Revoke an existing OAuth2 access token
       description: |-
         Our implementation follows the proposed IETF specification [RFC-7009](https://tools.ietf.org/html/rfc7009).
@@ -382,7 +382,7 @@ paths:
   /v2/user:
     get:
       tags:
-        - identity
+        - Identity
       summary: NPR Get the latest state information about the logged-in user
       description: "After a successful login, the client should send a `GET` call approximately once an hour to refresh the user data."
       operationId: getUser
@@ -489,7 +489,7 @@ paths:
             - identity.readonly
     delete:
       tags:
-        - identity
+        - Identity
       summary: NPR Delete the user's account
       description: "Use with caution as some steps are irreverisble. Initiates the user account deletion process, including removal of all user PII and account access."
       operationId: deleteUser
@@ -575,7 +575,7 @@ paths:
   /v2/stations:
     put:
       tags:
-        - identity
+        - Identity
       summary: NPR Update the logged-in user's favorite station(s)
       description: "Right now, only the primary station can be changed. Previously selected stations will not be deleted, but the new station will be moved to first in the array."
       operationId: updateStations
@@ -720,7 +720,7 @@ paths:
   /v2/following:
     post:
       tags:
-        - identity
+        - Identity
       summary: NPR Update the following status of the logged-in user for a particular aggregation
       description: "After a successful call, this returns a User document with an updated list of affiliations."
       operationId: postFollowing
@@ -1386,3 +1386,6 @@ components:
             listening.write: "Record that you have heard, marked as interesting, and/or skipped NPR One stories in order to personalize future audio recommendations."
             localactivation: Connect you with your local NPR member station for communication purposes.
 x-original-swagger-version: "2.0"
+tags:
+  - name: Authorization
+  - name: Identity

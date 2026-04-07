@@ -7,9 +7,9 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
+  - Media
   - News
   - Radio
-  - Media
 url: https://raw.githubusercontent.com/api-evangelist/npr/refs/heads/main/apis.yml
 created: '2024-04-14'
 modified: '2026-03-16'
@@ -20,8 +20,8 @@ apis:
     description: Audio recommendations tailored to a user's preferences.
     humanURL: https://listening.api.npr.org/v2/swagger.json
     tags:
-      - Listening
       - Audio
+      - Listening
     properties:
       - type: Documentation
         url: https://dev.npr.org/
