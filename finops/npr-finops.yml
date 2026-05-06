@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,10 +9,11 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: NPR
 providerId: npr
-publisherName: NPR
-serviceCategory: API
+publisherName: National Public Radio, Inc.
+serviceCategory: Media / Public Broadcasting
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Media
   - News
@@ -19,96 +21,59 @@ tags:
   - FinOps
   - Cost Management
   - FOCUS
-description: FinOps framework definition for the NPR API surface. Provides a FOCUS-aligned mapping for
-  cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+description: 'FOCUS-aligned FinOps for NPR: API access is free under a partner/credentialed program rather
+  than a paid SaaS contract. Cost dimensions are operational (engineering integration time, content licensing
+  obligations) rather than per-call invoicing.'
+notes: NPR does not invoice API consumers under the public developer program; the FinOps surface is implementation
+  cost and content-licensing compliance, not vendor spend.
+sources:
+  - https://dev.npr.org/
 principles:
   - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
+    description: There is no NPR invoice for API usage. Track per-OAuth-client request volumes and content
+      airing/streaming counts internally for licensing and quota-of-fair-use reporting.
   - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
+    description: Allocate API usage to the consuming app or station group via the OAuth client_id.
   - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
+    description: Cache NPR Listening recommendations and Station Finder responses; respect upstream content
+      TTLs to minimize redundant calls and stay within fair use.
   - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+    description: Each NPR developer account has an owner of record. Assign per-app responsibility for
+      compliance with the NPR API Terms of Use and content rights, and for renewing OAuth credentials.
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Free / Partner Program
+  billingFrequency: None
   billingCurrency: USD
   chargeCategories:
     - Usage
-    - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
+  chargeFrequency: None
 focusColumns:
   ServiceName: NPR
-  ServiceCategory: Developer Tools / API
+  ServiceCategory: Media / Public Broadcasting
   ProviderName: NPR
-  PublisherName: NPR
-  InvoiceIssuerName: NPR
-  PricingCategory: Usage-Based
+  PublisherName: National Public Radio, Inc.
+  InvoiceIssuerName: N/A (free partner program)
+  PricingCategory: Free
   PricingUnit: request
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
   - name: api_requests
-    description: Count of billable API requests
+    description: Count of API requests across all NPR developer surfaces (operationally tracked, not invoiced)
     unit: request
     aggregation: sum
     dimensions:
       - api
+      - oauth_client
       - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+  - name: audio_recommendations_served
+    description: Listening API audio recommendations delivered (relevant to content licensing reporting)
+    unit: recommendation
     aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+  - name: station_lookups
+    description: Station Finder lookups by zip/geo
+    unit: lookup
     aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
 apis:
   - name: NPR Listening
     baseURL: https://listening.api.npr.org/
@@ -116,33 +81,30 @@ apis:
       - Audio
       - Listening
     serviceName: NPR Listening
-    serviceCategory: API
+    serviceCategory: Media
   - name: NPR Station Finder
     baseURL: https://station.api.npr.org/
     tags:
       - Stations
     serviceName: NPR Station Finder
-    serviceCategory: API
+    serviceCategory: Media
   - name: NPR Identity
     baseURL: https://identity.api.npr.org/
     tags:
       - Identity
       - Users
     serviceName: NPR Identity
-    serviceCategory: API
+    serviceCategory: Media
   - name: NPR Authorization
     baseURL: https://authorization.api.npr.org/
     tags:
       - Authorization
     serviceName: NPR Authorization
-    serviceCategory: API
+    serviceCategory: Media
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+  - name: Engineering cost per integrated app
+    metric: integration_engineer_hours * loaded_rate / integrated_apps
+    target: minimize via shared client libraries
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

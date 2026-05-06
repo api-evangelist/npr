@@ -4,99 +4,45 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: NPR
 providerId: npr
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Media
   - News
   - Radio
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the NPR API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: NPR does not publish numeric per-second or per-minute rate limits for its developer APIs.
+  Access is controlled at the OAuth client / partner level; misuse is handled via account suspension
+  per the NPR API Terms of Use rather than a documented 429 throttle ceiling.
+notes: Rate limit values are not publicly published. Update once NPR Digital Services documents per-client
+  ceilings.
+sources:
+  - https://dev.npr.org/
+  - https://dev.npr.org/guide/services/listening
 responseCodes:
+  unauthorized: 401
+  forbidden: 403
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - NPR Listening
-      - NPR Station Finder
-      - NPR Identity
-      - NPR Authorization
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - NPR Listening
-      - NPR Station Finder
-      - NPR Identity
-      - NPR Authorization
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - NPR Listening
-      - NPR Station Finder
-      - NPR Identity
-      - NPR Authorization
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - NPR Listening
-      - NPR Station Finder
-      - NPR Identity
-      - NPR Authorization
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
+  - name: Per OAuth client
+    scope: oauth-client
+    metric: varies
+    limit: not numerically published; subject to fair use under the developer agreement
     applies:
       - NPR Listening
       - NPR Station Finder
       - NPR Identity
       - NPR Authorization
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: OAuth required
+    description: Most NPR API surfaces require an OAuth 2.0 client credential issued via the developer
+      registration flow.
+  - name: Terms of Use
+    description: Use is governed by the NPR API Terms of Use; abuse, misattribution, or content-license
+      violations result in suspension rather than throttling.
+  - name: Backoff
+    description: Clients should implement exponential backoff with jitter on 429 responses and honor any
+      Retry-After header.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
