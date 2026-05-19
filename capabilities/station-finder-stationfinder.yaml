@@ -1,0 +1,161 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NPR Station Finder Service — Stationfinder
+  description: 'NPR Station Finder Service — Stationfinder. 2 operations. Lead operation: NPR List stations close to you or
+    filter by search criteria. Self-contained Naftiko capability covering one Npr business surface.'
+  tags:
+  - Npr
+  - Stationfinder
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NPR_API_KEY: NPR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: station-finder-stationfinder
+    baseUri: https://station.api.npr.org
+    description: NPR Station Finder Service — Stationfinder business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-stations
+      path: /v3/stations
+      operations:
+      - name: searchstations
+        method: GET
+        description: NPR List stations close to you or filter by search criteria
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Authorization
+          in: header
+          type: string
+          description: Your access token from the Authorization Service. Should start with `Bearer`, followed by a space,
+            followed by the token.
+          required: true
+        - name: q
+          in: query
+          type: string
+          description: Search terms to search on; can be a station name, network name, call letters, or zipcode
+        - name: city
+          in: query
+          type: string
+          description: A city to look for stations from; intended to be paired with `state`
+        - name: state
+          in: query
+          type: string
+          description: A state to look for stations from (using the 2-letter abbreviation); intended to be paired with `city`
+        - name: lat
+          in: query
+          type: number
+          description: A latitude value from a geographic coordinate system; only works if paired with `lon`
+        - name: lon
+          in: query
+          type: number
+          description: A longitude value from a geographic coordinate system; only works if paired with `lat`
+    - name: v3-stations-stationId
+      path: /v3/stations/{stationId}
+      operations:
+      - name: getstationbyid
+        method: GET
+        description: NPR Retrieve metadata for the station with the given numeric ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Authorization
+          in: header
+          type: string
+          description: Your access token from the Authorization Service. Should start with `Bearer`, followed by a space,
+            followed by the token.
+          required: true
+        - name: stationId
+          in: path
+          type: integer
+          description: The numeric ID of a station
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.NPR_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: station-finder-stationfinder-rest
+    port: 8080
+    description: REST adapter for NPR Station Finder Service — Stationfinder. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v3/stations
+      name: v3-stations
+      description: REST surface for v3-stations.
+      operations:
+      - method: GET
+        name: searchstations
+        description: NPR List stations close to you or filter by search criteria
+        call: station-finder-stationfinder.searchstations
+        with:
+          Authorization: rest.Authorization
+          q: rest.q
+          city: rest.city
+          state: rest.state
+          lat: rest.lat
+          lon: rest.lon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/stations/{stationid}
+      name: v3-stations-stationid
+      description: REST surface for v3-stations-stationId.
+      operations:
+      - method: GET
+        name: getstationbyid
+        description: NPR Retrieve metadata for the station with the given numeric ID
+        call: station-finder-stationfinder.getstationbyid
+        with:
+          Authorization: rest.Authorization
+          stationId: rest.stationId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: station-finder-stationfinder-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NPR Station Finder Service — Stationfinder. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: npr-list-stations-close-you
+      description: NPR List stations close to you or filter by search criteria
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: station-finder-stationfinder.searchstations
+      with:
+        Authorization: tools.Authorization
+        q: tools.q
+        city: tools.city
+        state: tools.state
+        lat: tools.lat
+        lon: tools.lon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: npr-retrieve-metadata-station-given
+      description: NPR Retrieve metadata for the station with the given numeric ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: station-finder-stationfinder.getstationbyid
+      with:
+        Authorization: tools.Authorization
+        stationId: tools.stationId
+      outputParameters:
+      - type: object
+        mapping: $.
