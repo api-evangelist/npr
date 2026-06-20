@@ -3,7 +3,7 @@ name: NPR
 description: National Public Radio (NPR) APIs. The APIs support station finding, authentication, user management, and listening
   with audio recommendations tailored to a user's preferences.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Media
   - News
