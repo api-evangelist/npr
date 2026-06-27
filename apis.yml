@@ -38,7 +38,7 @@ apis:
       url: https://dev.npr.org/guide/services/station-finder
     - type: OpenAPI
       url: https://raw.githubusercontent.com/api-evangelist/npr/main/openapi/npr-station-finder-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/station-finder-stationfinder.yaml
   - aid: npr:identity
     name: NPR Identity
@@ -53,9 +53,9 @@ apis:
       url: https://dev.npr.org/guide/services/identity
     - type: OpenAPI
       url: https://raw.githubusercontent.com/api-evangelist/npr/main/openapi/npr-identity-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/identity-authorization.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/identity-identity.yaml
   - aid: npr:authorization
     name: NPR Authorization
@@ -69,9 +69,9 @@ apis:
       url: https://dev.npr.org/guide/services/authorization
     - type: OpenAPI
       url: https://raw.githubusercontent.com/api-evangelist/npr/main/openapi/npr-authorization-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/authorization-authorization.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/authorization-identity.yaml
 common:
   - type: GitHubOrganization
