@@ -1,0 +1,67 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/npr-authorization-openapi-original.yml, openapi/npr-identity-openapi-original.yml,
+  openapi/npr-station-finder-openapi-original.yml
+schemes:
+- name: oauth2
+  source: openapi/npr-authorization-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authorization.api.npr.org/v2/authorize
+    tokenUrl: https://authorization.api.npr.org/v2/token
+- name: oauth2
+  source: openapi/npr-identity-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authorization.api.npr.org/v2/authorize
+    tokenUrl: https://authorization.api.npr.org/v2/token
+- name: oauth2
+  source: openapi/npr-station-finder-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authorization.api.npr.org/v2/authorize
+    tokenUrl: https://authorization.api.npr.org/v2/token
+scopes:
+- scope: identity.readonly
+  description: See your personal information, such as your first name, last name, and favorite
+    station.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/npr-authorization-openapi-original.yml
+  - openapi/npr-identity-openapi-original.yml
+  - openapi/npr-station-finder-openapi-original.yml
+- scope: identity.write
+  description: Update your personal information, such as your favorite station(s) or program(s)
+    you follow, on your behalf.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/npr-authorization-openapi-original.yml
+  - openapi/npr-identity-openapi-original.yml
+  - openapi/npr-station-finder-openapi-original.yml
+- scope: listening.readonly
+  description: See your NPR One listening history and get audio recommendations.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/npr-authorization-openapi-original.yml
+  - openapi/npr-identity-openapi-original.yml
+  - openapi/npr-station-finder-openapi-original.yml
+- scope: listening.write
+  description: Record that you have heard, marked as interesting, and/or skipped NPR One stories
+    in order to personalize future audio recommendations.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/npr-authorization-openapi-original.yml
+  - openapi/npr-identity-openapi-original.yml
+  - openapi/npr-station-finder-openapi-original.yml
+- scope: localactivation
+  description: Connect you with your local NPR member station for communication purposes.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/npr-authorization-openapi-original.yml
+  - openapi/npr-identity-openapi-original.yml
+  - openapi/npr-station-finder-openapi-original.yml

@@ -74,6 +74,8 @@ apis:
     - type: X-NaftikoCapability
       url: capabilities/authorization-identity.yaml
 common:
+  - type: OAuthScopes
+    url: scopes/npr-scopes.yml
   - type: GitHubOrganization
     url: https://github.com/npr
   - type: LinkedIn
