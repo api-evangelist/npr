@@ -3,7 +3,20 @@ name: NPR
 description: National Public Radio (NPR) APIs. The APIs support station finding, authentication, user management, and listening
   with audio recommendations tailored to a user's preferences.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Free · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/npr.png
 tags:
   - Media
   - News
@@ -13,66 +26,97 @@ created: '2024-04-14'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: npr:listening
-    name: NPR Listening
-    description: Audio recommendations tailored to a user's preferences.
-    humanURL: https://dev.npr.org/guide/services/listening
-    baseURL: https://listening.api.npr.org/
-    tags:
-    - Audio
-    - Listening
-    properties:
-    - type: Documentation
-      url: https://dev.npr.org/guide/services/listening
-    - type: Swagger
-      url: https://listening.api.npr.org/v2/swagger.json
-  - aid: npr:station-finder
-    name: NPR Station Finder
-    description: NPR member station information lookup.
-    humanURL: https://dev.npr.org/guide/services/station-finder
-    baseURL: https://station.api.npr.org/
-    tags:
-    - Stations
-    properties:
-    - type: Documentation
-      url: https://dev.npr.org/guide/services/station-finder
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/npr/main/openapi/npr-station-finder-openapi-original.yml
-    - type: X-NaftikoCapability
-      url: capabilities/station-finder-stationfinder.yaml
-  - aid: npr:identity
-    name: NPR Identity
-    description: User management API and entry point to user-specific information.
-    humanURL: https://dev.npr.org/guide/services/identity
-    baseURL: https://identity.api.npr.org/
-    tags:
-    - Identity
-    - Users
-    properties:
-    - type: Documentation
-      url: https://dev.npr.org/guide/services/identity
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/npr/main/openapi/npr-identity-openapi-original.yml
-    - type: X-NaftikoCapability
-      url: capabilities/identity-authorization.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/identity-identity.yaml
-  - aid: npr:authorization
-    name: NPR Authorization
-    description: API authorization service.
-    humanURL: https://dev.npr.org/guide/services/authorization
-    baseURL: https://authorization.api.npr.org/
-    tags:
-    - Authorization
-    properties:
-    - type: Documentation
-      url: https://dev.npr.org/guide/services/authorization
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/npr/main/openapi/npr-authorization-openapi-original.yml
-    - type: X-NaftikoCapability
-      url: capabilities/authorization-authorization.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/authorization-identity.yaml
+- aid: npr:listening
+  name: NPR Listening
+  description: Audio recommendations tailored to a user's preferences.
+  humanURL: https://dev.npr.org/guide/services/listening
+  baseURL: https://listening.api.npr.org/
+  tags:
+  - Audio
+  - Listening
+  properties:
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/listening
+  - type: Swagger
+    url: https://listening.api.npr.org/v2/swagger.json
+- aid: npr:npr-authorization-api
+  name: NPR Authorization API
+  description: The Authorization API from NPR — 4 operation(s) for authorization.
+  humanURL: https://dev.npr.org/guide/services/listening
+  baseURL: https://listening.api.npr.org/
+  tags:
+  - Authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/npr-authorization-api-openapi.yml
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/station-finder
+  - type: X-NaftikoCapability
+    url: capabilities/station-finder-stationfinder.yaml
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/identity
+  - type: X-NaftikoCapability
+    url: capabilities/identity-authorization.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/identity-identity.yaml
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/authorization
+  - type: X-NaftikoCapability
+    url: capabilities/authorization-authorization.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/authorization-identity.yaml
+- aid: npr:npr-identity-api
+  name: NPR Identity API
+  description: The Identity API from NPR — 3 operation(s) for identity.
+  humanURL: https://dev.npr.org/guide/services/listening
+  baseURL: https://listening.api.npr.org/
+  tags:
+  - Identity
+  properties:
+  - type: OpenAPI
+    url: openapi/npr-identity-api-openapi.yml
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/station-finder
+  - type: X-NaftikoCapability
+    url: capabilities/station-finder-stationfinder.yaml
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/identity
+  - type: X-NaftikoCapability
+    url: capabilities/identity-authorization.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/identity-identity.yaml
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/authorization
+  - type: X-NaftikoCapability
+    url: capabilities/authorization-authorization.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/authorization-identity.yaml
+- aid: npr:npr-stationfinder-api
+  name: NPR Stationfinder API
+  description: The Stationfinder API from NPR — 2 operation(s) for stationfinder.
+  humanURL: https://dev.npr.org/guide/services/listening
+  baseURL: https://listening.api.npr.org/
+  tags:
+  - Stationfinder
+  properties:
+  - type: OpenAPI
+    url: openapi/npr-stationfinder-api-openapi.yml
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/station-finder
+  - type: X-NaftikoCapability
+    url: capabilities/station-finder-stationfinder.yaml
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/identity
+  - type: X-NaftikoCapability
+    url: capabilities/identity-authorization.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/identity-identity.yaml
+  - type: Documentation
+    url: https://dev.npr.org/guide/services/authorization
+  - type: X-NaftikoCapability
+    url: capabilities/authorization-authorization.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/authorization-identity.yaml
 common:
   - type: AgenticAccess
     url: agentic-access/npr-agentic-access.yml
