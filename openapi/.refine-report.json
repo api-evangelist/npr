@@ -1,0 +1,18 @@
+{
+  "provider": "npr",
+  "sources": [
+    "npr-authorization-api-openapi.yml",
+    "npr-identity-api-openapi.yml",
+    "npr-stationfinder-api-openapi.yml"
+  ],
+  "outputs": [
+    "npr-authorization-api-openapi.yml",
+    "npr-identity-api-openapi.yml",
+    "npr-stationfinder-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
