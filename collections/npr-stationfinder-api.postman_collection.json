@@ -1,0 +1,1053 @@
+{
+  "item": [
+    {
+      "id": "6605bb39-dbc6-4cf7-9a28-ea78ddd7f4f4",
+      "name": "Stationfinder",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ac81e3f-3a6c-42ec-8719-02c99808429c",
+          "name": "NPR List stations close to you or filter by search criteria",
+          "request": {
+            "name": "NPR List stations close to you or filter by search criteria",
+            "description": {
+              "content": "This endpoint has two main use cases:\n\n- If no query parameters passed in, it returns a list of stations that are geographically closest to the calling client (based on GeoIP information)\n- If one or more query parameters are passed in, it performs a search of NPR stations that match those search criteria (not taking into account the client's physical location)\n\nClients wanting to implement a 'Change Station' UI should use this endpoint to power their search. In most cases, you'll want to build a search interface that uses one of the 3 provided schemas: `lat` and `lon` (using e.g. the HTML5 Geolocation API), `city` and `state`, _or_ the generic `q` query which can accept a station name, call letters, network name, or zip code. Technically speaking, `q` can also take in either a city name or a state name, but using the `city` and `state` parameters together will yield more accurate geographic search results than `q={cityName}`.\n\nThe `lat` and `lon` query parameters should always be passed in together (otherwise the API will return a 400 error), and if included in the query, they will take precedence over any other search criteria; that is, `lat` and `lon` will do a purely geographic search and not take into account `q`, `city` or `state`.\n\nSimilarly, `city` and/or `state` will take precedence over (and ignore) `q`.\n\nIf clients want to be able to offer multiple types of searches (e.g. 'Search for a station name, city or zipcode') using a *single* search input form, `q` should be used. But again, be aware that using `city` and `state` together will yield more accurate search results than `q={cityName}`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "stations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Search terms to search on; can be a station name, network name, call letters, or zipcode"
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>",
+                  "description": "A city to look for stations from; intended to be paired with `state`"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "A state to look for stations from (using the 2-letter abbreviation); intended to be paired with `city`"
+                },
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "A latitude value from a geographic coordinate system; only works if paired with `lon`"
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "A longitude value from a geographic coordinate system; only works if paired with `lat`"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8dedeac-59f6-49a8-b90b-ebd7dd424e97",
+              "name": "A list of one or more stations matching the search query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2059"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"query\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"lat\": 8293.81529443404,\n    \"lon\": 1019.3677899056852,\n    \"countryCode\": \"string\"\n  },\n  \"errors\": [],\n  \"href\": \"string\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"brand\": {\n          \"marketCity\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"marketState\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tagline\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"call\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"frequency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"band\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"eligibility\": {\n          \"format\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"musicOnly\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"nprOne\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"status\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"localization\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"guid\": \"2a1101e14030cf449cf3ae1f7425280d\",\n        \"network\": {\n          \"currentOrgId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"usesInheritance\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tier1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"orgId\": \"519\",\n        \"newscast\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"recency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"href\": \"string\",\n      \"links\": {\n        \"brand\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"donation\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"podcasts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"streams\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"related\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"version\": \"1.0\"\n    },\n    {\n      \"attributes\": {\n        \"brand\": {\n          \"marketCity\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"marketState\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tagline\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"call\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"frequency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"band\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"eligibility\": {\n          \"format\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"musicOnly\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"nprOne\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"status\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"localization\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"guid\": \"77a319cca4fddc2dc547f7dd5270bc9e\",\n        \"network\": {\n          \"currentOrgId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"usesInheritance\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"tier1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"orgId\": \"3865\",\n        \"newscast\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"recency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"href\": \"string\",\n      \"links\": {\n        \"brand\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"donation\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"podcasts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"streams\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"related\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"version\": \"1.0\"\n    }\n  ],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d40e904-80f4-4600-a052-dac32bb54d39",
+              "name": "A bad request; generally, one or more parameters passed in were incorrect or missing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2059"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ce1d852-2228-409a-996d-7a5663131323",
+              "name": "The client is not authorized to complete this request. Check to ensure a valid access token was passed in the headers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24bc1ac4-7523-45a5-ad6c-10e126f6e9a7",
+              "name": "The client has exceeded the number of daily calls as per their rate limit. For now, this only applies to prototype applications and untrusted clients. Trusted clients will never be rate-limited, nor will any production apps.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2059"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ce13f4c-f26d-4131-8ec4-ff06e2e0afbf",
+              "name": "A server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2059"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff5a28fa-5772-499f-9bcc-54fa8643429c",
+              "name": "The system is undergoing maintenance and we are unable to fulfill this request. Look for a `Retry-After` header to see the predicted time the system will be back up.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The predicted time the system will be back up",
+                  "key": "Retry-After",
+                  "value": "2013-04-30T02:42:28.790Z"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3edac56-5be3-4a16-a23d-17db89c9b839",
+          "name": "NPR Retrieve metadata for the station with the given numeric ID",
+          "request": {
+            "name": "NPR Retrieve metadata for the station with the given numeric ID",
+            "description": {
+              "content": "This endpoint retrieves information about a given station, based on its numeric ID, which is consistent across all of NPR's APIs.\n\nA typical use case for this data is for clients who want to create a dropdown menu, modal/pop-up or dedicated page displaying more information about the station the client is localized to, including, for example, links to the station's homepage and donation (pledge) page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "stations",
+                ":stationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "stationId",
+                  "description": "(Required) The numeric ID of a station"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "731a15b5-4c67-4d41-bbf5-a62b97c28c30",
+              "name": "A document describing the station with the given ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations",
+                    ":stationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "stationId",
+                      "description": "(Required) The numeric ID of a station"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2059"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"brand\": {\n      \"marketCity\": \"F\",\n      \"marketState\": \"UV\",\n      \"name\": \"string\",\n      \"tagline\": \"\",\n      \"call\": \"KKD\",\n      \"frequency\": \"11.6\",\n      \"band\": \"FM\"\n    },\n    \"eligibility\": {\n      \"format\": \"Public Radio\",\n      \"musicOnly\": false,\n      \"nprOne\": true,\n      \"status\": \"1\",\n      \"localization\": \"Show everywhere\"\n    },\n    \"guid\": \"5dd3c6c5e2713fb02518c69c8959ba32\",\n    \"network\": {\n      \"currentOrgId\": \"513\",\n      \"usesInheritance\": true,\n      \"tier1\": {\n        \"id\": \"4\",\n        \"name\": \"string\",\n        \"usesInheritance\": false,\n        \"status\": \"10\",\n        \"tier2\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"orgId\": \"38\",\n    \"newscast\": {\n      \"id\": \"5401\",\n      \"recency\": 573\n    }\n  },\n  \"errors\": [],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {\n    \"brand\": [\n      {\n        \"content-type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"rel\": \"homepage\"\n      },\n      {\n        \"content-type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"rel\": \"homepage\"\n      }\n    ],\n    \"donation\": [\n      {\n        \"typeId\": \"4\",\n        \"typeName\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"guid\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"typeId\": \"4\",\n        \"typeName\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"guid\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ],\n    \"podcasts\": [\n      {\n        \"typeId\": \"9\",\n        \"typeName\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"guid\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"typeId\": \"9\",\n        \"typeName\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"guid\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ],\n    \"streams\": [\n      {\n        \"typeId\": \"10\",\n        \"typeName\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"guid\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"isPrimaryStream\": true\n      },\n      {\n        \"typeId\": \"10\",\n        \"typeName\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"guid\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"isPrimaryStream\": true\n      }\n    ],\n    \"related\": [\n      {\n        \"typeId\": \"string\",\n        \"typeName\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"guid\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"typeId\": \"string\",\n        \"typeName\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"guid\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"title\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ]\n  },\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b79ea64-9e04-45e4-a049-78eb402f9ed7",
+              "name": "A bad request; generally, one or more parameters passed in were incorrect or missing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations",
+                    ":stationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "stationId",
+                      "description": "(Required) The numeric ID of a station"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2059"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89242cf6-226f-4179-b8f2-9c99cf942389",
+              "name": "The client is not authorized to complete this request. Check to ensure a valid access token was passed in the headers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations",
+                    ":stationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "stationId",
+                      "description": "(Required) The numeric ID of a station"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19f3b405-92c8-4114-b488-73b9593201a2",
+              "name": "The resource with the requested ID could not be found, and the server was unable to complete the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations",
+                    ":stationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "stationId",
+                      "description": "(Required) The numeric ID of a station"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2059"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9001570-2b63-43b0-bf7d-73bc32bc156f",
+              "name": "The client has exceeded the number of daily calls as per their rate limit. For now, this only applies to prototype applications and untrusted clients. Trusted clients will never be rate-limited, nor will any production apps.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations",
+                    ":stationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "stationId",
+                      "description": "(Required) The numeric ID of a station"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2059"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9cdedcb-e393-4f46-82f4-6e108d8606ab",
+              "name": "A server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations",
+                    ":stationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "stationId",
+                      "description": "(Required) The numeric ID of a station"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "2059"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2059"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1f8e6d2-f9f0-4b7b-a9e4-1705a37306f5",
+              "name": "The system is undergoing maintenance and we are unable to fulfill this request. Look for a `Retry-After` header to see the predicted time the system will be back up.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "stations",
+                    ":stationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "stationId",
+                      "description": "(Required) The numeric ID of a station"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The predicted time the system will be back up",
+                  "key": "Retry-After",
+                  "value": "2013-04-30T02:42:28.790Z"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 1808,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 621,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://identity.api.npr.org/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4db3bca4-0650-4468-9461-f89871ddc8ed",
+    "name": "NPR Identity Service Authorization Stationfinder API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The entry point to user-specific information\n\nContact Support:\n Name: NPR One Enterprise Team\n Email: NPROneEnterprise@npr.org",
+      "type": "text/plain"
+    }
+  }
+}

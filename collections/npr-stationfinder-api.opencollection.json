@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NPR Identity Service Authorization Stationfinder API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stationfinder",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "NPR List stations close to you or filter by search criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://identity.api.npr.org/v3/stations",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search terms to search on; can be a station name, network name, call letters, or zipcode"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "A city to look for stations from; intended to be paired with `state`"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "A state to look for stations from (using the 2-letter abbreviation); intended to be paired with `city`"
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "A latitude value from a geographic coordinate system; only works if paired with `lon`"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "A longitude value from a geographic coordinate system; only works if paired with `lat`"
+              }
+            ]
+          },
+          "docs": "This endpoint has two main use cases:\n\n- If no query parameters passed in, it returns a list of stations that are geographically closest to the calling client (based on GeoIP information)\n- If one or more query parameters are passed in, it performs a search of NPR stations that match those search criteria (not taking into account the client's physical location)\n\nClients wanting to implement a 'Change Station' UI should use this endpoint to power their search. In most cases, you'll want to build "
+        },
+        {
+          "info": {
+            "name": "NPR Retrieve metadata for the station with the given numeric ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://identity.api.npr.org/v3/stations/:stationId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "stationId",
+                "value": "",
+                "type": "path",
+                "description": "The numeric ID of a station"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves information about a given station, based on its numeric ID, which is consistent across all of NPR's APIs.\n\nA typical use case for this data is for clients who want to create a dropdown menu, modal/pop-up or dedicated page displaying more information about the station the client is localized to, including, for example, links to the station's homepage and donation (pledge) page."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

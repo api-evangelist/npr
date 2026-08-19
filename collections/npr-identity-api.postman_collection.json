@@ -1,0 +1,1686 @@
+{
+  "item": [
+    {
+      "id": "a417ce76-d36b-4378-83e4-04fb1538f5a1",
+      "name": "Identity",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "100f3d29-e4d5-4f35-b0d8-b437b8fd3f6d",
+          "name": "NPR Get the latest state information about the logged-in user",
+          "request": {
+            "name": "NPR Get the latest state information about the logged-in user",
+            "description": {
+              "content": "After a successful login, the client should send a `GET` call approximately once an hour to refresh the user data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "identity.readonly identity.write listening.readonly listening.write localactivation"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://authorization.api.npr.org/v2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authorization.api.npr.org/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9abe0f21-fcb7-4b53-b96c-409ebc94d146",
+              "name": "The request was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"algolia\": [\n      {\n        \"apiKey\": \"string\"\n      },\n      {\n        \"apiKey\": \"string\"\n      }\n    ],\n    \"cohort\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"public\": \"string\",\n      \"test\": \"string\"\n    },\n    \"id\": \"string\",\n    \"organizations\": [\n      {\n        \"call\": \"string\",\n        \"city\": \"string\",\n        \"displayName\": \"string\",\n        \"id\": \"string\",\n        \"serviceId\": \"string\",\n        \"logo\": \"string\",\n        \"smallLogo\": \"string\",\n        \"donationUrl\": \"string\",\n        \"notif_org\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"call\": \"string\",\n        \"city\": \"string\",\n        \"displayName\": \"string\",\n        \"id\": \"string\",\n        \"serviceId\": \"string\",\n        \"logo\": \"string\",\n        \"smallLogo\": \"string\",\n        \"donationUrl\": \"string\",\n        \"notif_org\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"email\": \"string\",\n    \"affiliations\": [\n      {\n        \"following\": false,\n        \"href\": \"string\",\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"rating\": 9562.95952183108,\n        \"daysSinceLastListen\": 5910,\n        \"notif_following\": [\n          \"string\",\n          \"string\"\n        ],\n        \"notif_rated\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"following\": false,\n        \"href\": \"string\",\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"rating\": 253.8767312806678,\n        \"daysSinceLastListen\": 5958,\n        \"notif_following\": [\n          \"string\",\n          \"string\"\n        ],\n        \"notif_rated\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"totalListeningTime\": \"string\"\n  },\n  \"errors\": [],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f5e1578-e23c-4f57-a50d-e5344b987719",
+              "name": "The client is not authorized to complete this request. Check to ensure a valid access token was passed in the headers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "350838c1-10e1-4660-bb5e-31ba6f9950c8",
+              "name": "The client has exceeded the number of daily calls as per their rate limit. For now, this only applies to prototype applications and untrusted clients. Trusted clients will never be rate-limited, nor will any production apps.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09d343ad-43df-41f8-923a-f35963b3f6dd",
+              "name": "A server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83923254-8c59-42ae-8105-d7a48a14a331",
+              "name": "The system is undergoing maintenance and we are unable to fulfill this request. Look for a `Retry-After` header to see the predicted time the system will be back up.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The predicted time the system will be back up",
+                  "key": "Retry-After",
+                  "value": "2011-12-07T22:41:02.754Z"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2fd0505-6173-4d04-8493-444847915c79",
+          "name": "NPR Delete the user's account",
+          "request": {
+            "name": "NPR Delete the user's account",
+            "description": {
+              "content": "Use with caution as some steps are irreverisble. Initiates the user account deletion process, including removal of all user PII and account access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "identity.readonly identity.write listening.readonly listening.write localactivation"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://authorization.api.npr.org/v2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authorization.api.npr.org/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "948973ce-928d-41bd-92f6-d6541f7b659b",
+              "name": "The request was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"algolia\": [\n      {\n        \"apiKey\": \"string\"\n      },\n      {\n        \"apiKey\": \"string\"\n      }\n    ],\n    \"cohort\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"public\": \"string\",\n      \"test\": \"string\"\n    },\n    \"id\": \"string\",\n    \"organizations\": [\n      {\n        \"call\": \"string\",\n        \"city\": \"string\",\n        \"displayName\": \"string\",\n        \"id\": \"string\",\n        \"serviceId\": \"string\",\n        \"logo\": \"string\",\n        \"smallLogo\": \"string\",\n        \"donationUrl\": \"string\",\n        \"notif_org\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"call\": \"string\",\n        \"city\": \"string\",\n        \"displayName\": \"string\",\n        \"id\": \"string\",\n        \"serviceId\": \"string\",\n        \"logo\": \"string\",\n        \"smallLogo\": \"string\",\n        \"donationUrl\": \"string\",\n        \"notif_org\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"email\": \"string\",\n    \"affiliations\": [\n      {\n        \"following\": false,\n        \"href\": \"string\",\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"rating\": 2802.372677486852,\n        \"daysSinceLastListen\": 562,\n        \"notif_following\": [\n          \"string\",\n          \"string\"\n        ],\n        \"notif_rated\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"following\": false,\n        \"href\": \"string\",\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"rating\": 2252.4228985317495,\n        \"daysSinceLastListen\": 4877,\n        \"notif_following\": [\n          \"string\",\n          \"string\"\n        ],\n        \"notif_rated\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"totalListeningTime\": \"string\"\n  },\n  \"errors\": [],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0a52677-a6ca-40e5-9ea4-e1e411e459ef",
+              "name": "The client is not authorized to complete this request. Check to ensure a valid access token was passed in the headers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00cc9393-4e65-46e7-859f-ce812ce79a97",
+              "name": "A server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8f0d5c8-249f-417c-b5e4-0e6eabe56381",
+              "name": "The system is undergoing maintenance and we are unable to fulfill this request. Look for a `Retry-After` header to see the predicted time the system will be back up.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The predicted time the system will be back up",
+                  "key": "Retry-After",
+                  "value": "2011-12-07T22:41:02.754Z"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73b5c81b-182e-4713-b797-08a073ae7b26",
+          "name": "NPR Update the logged-in user's favorite station(s)",
+          "request": {
+            "name": "NPR Update the logged-in user's favorite station(s)",
+            "description": {
+              "content": "Right now, only the primary station can be changed. Previously selected stations will not be deleted, but the new station will be moved to first in the array.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "stations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "identity.readonly identity.write listening.readonly listening.write localactivation"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://authorization.api.npr.org/v2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authorization.api.npr.org/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<integer>\",\n  \"<integer>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "639ac31e-24a8-432e-a943-a0f435a5bcbf",
+              "name": "The request was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<integer>\",\n  \"<integer>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"algolia\": [\n      {\n        \"apiKey\": \"string\"\n      },\n      {\n        \"apiKey\": \"string\"\n      }\n    ],\n    \"cohort\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"public\": \"string\",\n      \"test\": \"string\"\n    },\n    \"id\": \"string\",\n    \"organizations\": [\n      {\n        \"call\": \"string\",\n        \"city\": \"string\",\n        \"displayName\": \"string\",\n        \"id\": \"string\",\n        \"serviceId\": \"string\",\n        \"logo\": \"string\",\n        \"smallLogo\": \"string\",\n        \"donationUrl\": \"string\",\n        \"notif_org\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"call\": \"string\",\n        \"city\": \"string\",\n        \"displayName\": \"string\",\n        \"id\": \"string\",\n        \"serviceId\": \"string\",\n        \"logo\": \"string\",\n        \"smallLogo\": \"string\",\n        \"donationUrl\": \"string\",\n        \"notif_org\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"email\": \"string\",\n    \"affiliations\": [\n      {\n        \"following\": false,\n        \"href\": \"string\",\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"rating\": 2802.372677486852,\n        \"daysSinceLastListen\": 562,\n        \"notif_following\": [\n          \"string\",\n          \"string\"\n        ],\n        \"notif_rated\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"following\": false,\n        \"href\": \"string\",\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"rating\": 2252.4228985317495,\n        \"daysSinceLastListen\": 4877,\n        \"notif_following\": [\n          \"string\",\n          \"string\"\n        ],\n        \"notif_rated\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"totalListeningTime\": \"string\"\n  },\n  \"errors\": [],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9fccafa-1a18-4440-bf88-f7879bd68d38",
+              "name": "A bad request; generally, one or more parameters passed in were incorrect or missing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<integer>\",\n  \"<integer>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b281d7f4-773c-49ed-9b9c-e6400abf0c36",
+              "name": "The client is not authorized to complete this request. Check to ensure a valid access token was passed in the headers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<integer>\",\n  \"<integer>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0def6c2e-e941-4e68-94fa-342965f15e68",
+              "name": "The client has exceeded the number of daily calls as per their rate limit. For now, this only applies to prototype applications and untrusted clients. Trusted clients will never be rate-limited, nor will any production apps.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<integer>\",\n  \"<integer>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c70f7bd-d908-40a0-ad4c-4968e8ed1da5",
+              "name": "A server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<integer>\",\n  \"<integer>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63adb10a-8490-4b6e-9405-735f2cbc71e9",
+              "name": "The system is undergoing maintenance and we are unable to fulfill this request. Look for a `Retry-After` header to see the predicted time the system will be back up.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "stations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<integer>\",\n  \"<integer>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The predicted time the system will be back up",
+                  "key": "Retry-After",
+                  "value": "2011-12-07T22:41:02.754Z"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76e15674-bba1-4f69-b666-35283933b147",
+          "name": "NPR Update the following status of the logged-in user for a particular aggregation",
+          "request": {
+            "name": "NPR Update the following status of the logged-in user for a particular aggregation",
+            "description": {
+              "content": "After a successful call, this returns a User document with an updated list of affiliations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "following"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "identity.readonly identity.write listening.readonly listening.write localactivation"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://authorization.api.npr.org/v2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authorization.api.npr.org/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"following\": false,\n  \"href\": \"<string>\",\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"rating\": \"<float>\",\n  \"daysSinceLastListen\": \"<integer>\",\n  \"notif_following\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notif_rated\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b60c503e-1b2d-455f-9fc7-a3973e36ace7",
+              "name": "The request was successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "following"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"following\": false,\n  \"href\": \"<string>\",\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"rating\": \"<float>\",\n  \"daysSinceLastListen\": \"<integer>\",\n  \"notif_following\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notif_rated\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"algolia\": [\n      {\n        \"apiKey\": \"string\"\n      },\n      {\n        \"apiKey\": \"string\"\n      }\n    ],\n    \"cohort\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"public\": \"string\",\n      \"test\": \"string\"\n    },\n    \"id\": \"string\",\n    \"organizations\": [\n      {\n        \"call\": \"string\",\n        \"city\": \"string\",\n        \"displayName\": \"string\",\n        \"id\": \"string\",\n        \"serviceId\": \"string\",\n        \"logo\": \"string\",\n        \"smallLogo\": \"string\",\n        \"donationUrl\": \"string\",\n        \"notif_org\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"call\": \"string\",\n        \"city\": \"string\",\n        \"displayName\": \"string\",\n        \"id\": \"string\",\n        \"serviceId\": \"string\",\n        \"logo\": \"string\",\n        \"smallLogo\": \"string\",\n        \"donationUrl\": \"string\",\n        \"notif_org\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"email\": \"string\",\n    \"affiliations\": [\n      {\n        \"following\": false,\n        \"href\": \"<string>\",\n        \"id\": \"<string>\",\n        \"title\": \"<string>\",\n        \"rating\": \"<float>\",\n        \"daysSinceLastListen\": \"<integer>\",\n        \"notif_following\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"notif_rated\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"following\": false,\n        \"href\": \"<string>\",\n        \"id\": \"<string>\",\n        \"title\": \"<string>\",\n        \"rating\": \"<float>\",\n        \"daysSinceLastListen\": \"<integer>\",\n        \"notif_following\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"notif_rated\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"totalListeningTime\": \"string\"\n  },\n  \"errors\": [],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3a4bb07-539a-427f-a300-2e8290b6e351",
+              "name": "A bad request; generally, one or more parameters passed in were incorrect or missing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "following"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"following\": false,\n  \"href\": \"<string>\",\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"rating\": \"<float>\",\n  \"daysSinceLastListen\": \"<integer>\",\n  \"notif_following\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notif_rated\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7efcfbf0-61fe-4c5b-a9b2-f558824fb431",
+              "name": "The client is not authorized to complete this request. Check to ensure a valid access token was passed in the headers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "following"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"following\": false,\n  \"href\": \"<string>\",\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"rating\": \"<float>\",\n  \"daysSinceLastListen\": \"<integer>\",\n  \"notif_following\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notif_rated\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45609dc0-cd34-42dc-85e8-078fa681675b",
+              "name": "The client has exceeded the number of daily calls as per their rate limit. For now, this only applies to prototype applications and untrusted clients. Trusted clients will never be rate-limited, nor will any production apps.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "following"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"following\": false,\n  \"href\": \"<string>\",\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"rating\": \"<float>\",\n  \"daysSinceLastListen\": \"<integer>\",\n  \"notif_following\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notif_rated\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a03bbed-072b-4ccb-8be8-730f1f1fc4d9",
+              "name": "A server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "following"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"following\": false,\n  \"href\": \"<string>\",\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"rating\": \"<float>\",\n  \"daysSinceLastListen\": \"<integer>\",\n  \"notif_following\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notif_rated\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The number of remaining requests in the current period",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of seconds left in the current period",
+                  "key": "X-RateLimit-Reset",
+                  "value": "4800"
+                },
+                {
+                  "disabled": false,
+                  "description": "The number of allowed requests in the current period",
+                  "key": "X-RateLimit-Limit",
+                  "value": "4800"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0aad9971-95f3-434e-b06c-8771c8081938",
+              "name": "The system is undergoing maintenance and we are unable to fulfill this request. Look for a `Retry-After` header to see the predicted time the system will be back up.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "following"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your access token from the Authorization Service. Should start with `Bearer`, followed by a space, followed by the token.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"following\": false,\n  \"href\": \"<string>\",\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"rating\": \"<float>\",\n  \"daysSinceLastListen\": \"<integer>\",\n  \"notif_following\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notif_rated\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The predicted time the system will be back up",
+                  "key": "Retry-After",
+                  "value": "2011-12-07T22:41:02.754Z"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"errors\": [\n    {\n      \"code\": 779,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    },\n    {\n      \"code\": 4068,\n      \"text\": \"string\",\n      \"debug\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"items\": [],\n  \"links\": {},\n  \"version\": \"1.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://identity.api.npr.org/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b8b8ebe7-334b-4692-b1ce-94c952a171cd",
+    "name": "NPR Service Authorization Identity API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The entry point to user-specific information\n\nContact Support:\n Name: NPR One Enterprise Team\n Email: NPROneEnterprise@npr.org",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NPR Service Authorization Identity API",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Identity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "NPR Get the latest state information about the logged-in user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://identity.api.npr.org/v2/user",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://authorization.api.npr.org/v2/authorize",
+              "accessTokenUrl": "https://authorization.api.npr.org/v2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "After a successful login, the client should send a `GET` call approximately once an hour to refresh the user data."
+        },
+        {
+          "info": {
+            "name": "NPR Delete the user's account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://identity.api.npr.org/v2/user",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://authorization.api.npr.org/v2/authorize",
+              "accessTokenUrl": "https://authorization.api.npr.org/v2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use with caution as some steps are irreverisble. Initiates the user account deletion process, including removal of all user PII and account access."
+        },
+        {
+          "info": {
+            "name": "NPR Update the logged-in user's favorite station(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://identity.api.npr.org/v2/stations",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://authorization.api.npr.org/v2/authorize",
+              "accessTokenUrl": "https://authorization.api.npr.org/v2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Right now, only the primary station can be changed. Previously selected stations will not be deleted, but the new station will be moved to first in the array."
+        },
+        {
+          "info": {
+            "name": "NPR Update the following status of the logged-in user for a particular aggregation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://identity.api.npr.org/v2/following",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://authorization.api.npr.org/v2/authorize",
+              "accessTokenUrl": "https://authorization.api.npr.org/v2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "After a successful call, this returns a User document with an updated list of affiliations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
