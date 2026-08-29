@@ -1,9 +1,9 @@
 {
   "provider": "npr",
   "sources": [
-    "npr-authorization-api-openapi.yml",
-    "npr-identity-api-openapi.yml",
-    "npr-stationfinder-api-openapi.yml"
+    "_original/npr-authorization-openapi-original.yml",
+    "_original/npr-identity-openapi-original.yml",
+    "_original/npr-station-finder-openapi-original.yml"
   ],
   "outputs": [
     "npr-authorization-api-openapi.yml",
@@ -13,6 +13,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "npr-authorization-openapi-original.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "npr-identity-openapi-original.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "npr-station-finder-openapi-original.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "tag 'Authorization' spans 2 source specs (npr-authorization-openapi-original.yml, npr-identity-openapi-original.yml): per-path servers applied",
+    "tag 'Identity' spans 2 source specs (npr-authorization-openapi-original.yml, npr-identity-openapi-original.yml): per-path servers applied"
+  ],
+  "skipped": [
+    "npr-authorization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "npr-identity-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "npr-stationfinder-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

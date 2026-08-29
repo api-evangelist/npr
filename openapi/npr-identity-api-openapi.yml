@@ -1,13 +1,13 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: NPR Service Authorization Identity API
-  description: The entry point to user-specific information
-  termsOfService: https://dev.npr.org/guide/prerequisites/terms-of-use
+  title: Npr Identity API
+  version: '2'
   contact:
     name: NPR One Enterprise Team
     url: https://dev.npr.org
     email: NPROneEnterprise@npr.org
-  version: '2'
+  termsOfService: https://dev.npr.org/guide/prerequisites/terms-of-use
+  description: 'Operations tagged Identity across 2 of this provider''s published API definitions: npr-authorization-openapi-original.yml, npr-identity-openapi-original.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://identity.api.npr.org/
 tags:
@@ -206,6 +206,8 @@ paths:
       security:
       - oauth2:
         - identity.write
+    servers:
+    - url: https://identity.api.npr.org/
   /v2/stations:
     put:
       tags:
@@ -351,6 +353,8 @@ paths:
       - oauth2:
         - identity.write
       x-codegen-request-body-name: body
+    servers:
+    - url: https://identity.api.npr.org/
   /v2/following:
     post:
       tags:
@@ -489,50 +493,19 @@ paths:
       - oauth2:
         - identity.write
       x-codegen-request-body-name: body
+    servers:
+    - url: https://identity.api.npr.org/
 components:
   schemas:
-    UserDocument:
-      allOf:
-      - $ref: '#/components/schemas/CollectionDocument'
-      - type: object
-        properties:
-          items:
-            type: array
-            description: Not used, ignored on a PUT
-            items:
-              type: object
-              properties: {}
-          links:
-            type: object
-            properties: {}
-            description: A list of links, not used by the Identity Service; ignored on a PUT
-          attributes:
-            $ref: '#/components/schemas/UserData'
-    ErrorDocument:
-      description: A Collection.doc+JSON representation of an error result from an API call
-      allOf:
-      - $ref: '#/components/schemas/CollectionDocument'
-      - type: object
-        properties:
-          attributes:
-            type: object
-            properties: {}
-            description: Ignore; will be empty for errors
-          items:
-            type: array
-            description: Ignore; will be empty for errors
-            items:
-              type: object
-              properties: {}
-          links:
-            type: object
-            properties: {}
-            description: Ignore; will be empty for errors
-          errors:
-            type: array
-            description: A list of encountered errors, ignored on POST, PUT
-            items:
-              $ref: '#/components/schemas/Error'
+    Algolia:
+      required:
+      - apiKey
+      type: object
+      properties:
+        apiKey:
+          type: string
+          description: A search API key for this user
+      description: Parameters for querying the Algolia Search SDK for content
     Error:
       required:
       - code
@@ -587,6 +560,87 @@ components:
           items:
             type: string
       description: A station that a user has an affiliation with
+    UserDocument:
+      allOf:
+      - $ref: '#/components/schemas/CollectionDocument'
+      - type: object
+        properties:
+          items:
+            type: array
+            description: Not used, ignored on a PUT
+            items:
+              type: object
+              properties: {}
+          links:
+            type: object
+            properties: {}
+            description: A list of links, not used by the Identity Service; ignored on a PUT
+          attributes:
+            $ref: '#/components/schemas/UserData'
+    ErrorDocument:
+      description: A Collection.doc+JSON representation of an error result from an API call
+      allOf:
+      - $ref: '#/components/schemas/CollectionDocument'
+      - type: object
+        properties:
+          attributes:
+            type: object
+            properties: {}
+            description: Ignore; will be empty for errors
+          items:
+            type: array
+            description: Ignore; will be empty for errors
+            items:
+              type: object
+              properties: {}
+          links:
+            type: object
+            properties: {}
+            description: Ignore; will be empty for errors
+          errors:
+            type: array
+            description: A list of encountered errors, ignored on POST, PUT
+            items:
+              $ref: '#/components/schemas/Error'
+    Affiliation:
+      required:
+      - following
+      - href
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier for the aggregation (program)
+        title:
+          type: string
+          description: The title for the aggregation (program)
+        rating:
+          type: number
+          description: The user's average rating for this affiliation on a scale of 0-1. Absent if user never listened to the aggregation.
+          format: float
+        href:
+          type: string
+          description: A link to more details about the program from the NPR Story API
+        daysSinceLastListen:
+          type: integer
+          description: The number of days since a user last listened to a story from this aggregation. Absent if user never listened to the aggregation.
+          format: int32
+        notif_following:
+          type: array
+          description: The topic in Firebase Cloud Messaging to which the device should subscribe if it supports notifications and the user wants notifications about the podcasts they follow.
+          items:
+            type: string
+        notif_rated:
+          type: array
+          description: The topic in Firebase Cloud Messaging to which the device should subscribe if it supports notifications and the user wants notifications about the podcasts they have highly rated.
+          items:
+            type: string
+        following:
+          type: boolean
+          description: Whether or not the user is following the aggregation. When changing affiliation status, the client is expected to toggle this value and then send the entire object back.
+          default: false
+      description: A program (aggregation) that a given user has shown an affiliation with
     UserData:
       required:
       - algolia
@@ -628,73 +682,6 @@ components:
           type: string
           description: Internal use only. User's total listening time across all platforms.
       description: Object; see description of a user object below
-    Affiliation:
-      required:
-      - following
-      - href
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: A unique identifier for the aggregation (program)
-        title:
-          type: string
-          description: The title for the aggregation (program)
-        rating:
-          type: number
-          description: The user's average rating for this affiliation on a scale of 0-1. Absent if user never listened to the aggregation.
-          format: float
-        href:
-          type: string
-          description: A link to more details about the program from the NPR Story API
-        daysSinceLastListen:
-          type: integer
-          description: The number of days since a user last listened to a story from this aggregation. Absent if user never listened to the aggregation.
-          format: int32
-        notif_following:
-          type: array
-          description: The topic in Firebase Cloud Messaging to which the device should subscribe if it supports notifications and the user wants notifications about the podcasts they follow.
-          items:
-            type: string
-        notif_rated:
-          type: array
-          description: The topic in Firebase Cloud Messaging to which the device should subscribe if it supports notifications and the user wants notifications about the podcasts they have highly rated.
-          items:
-            type: string
-        following:
-          type: boolean
-          description: Whether or not the user is following the aggregation. When changing affiliation status, the client is expected to toggle this value and then send the entire object back.
-          default: false
-      description: A program (aggregation) that a given user has shown an affiliation with
-    Cohort:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: A short ID for this cohort; ignored on a PUT
-        name:
-          type: string
-          description: A text string identifying the cohort, useful for metrics; ignored on a PUT
-        public:
-          type: string
-          description: For internal use only; represents the current configuration file being used by the Listening Service
-        test:
-          type: string
-          description: For internal use only; represents the test configuration file being used by the Listening Service
-      description: An experimental grouping for User Experience A/B Testing
-    Algolia:
-      required:
-      - apiKey
-      type: object
-      properties:
-        apiKey:
-          type: string
-          description: A search API key for this user
-      description: Parameters for querying the Algolia Search SDK for content
     CollectionDocument:
       required:
       - attributes
@@ -730,6 +717,25 @@ components:
             type: object
             properties: {}
       description: Base Collection.Doc+JSON output
+    Cohort:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: A short ID for this cohort; ignored on a PUT
+        name:
+          type: string
+          description: A text string identifying the cohort, useful for metrics; ignored on a PUT
+        public:
+          type: string
+          description: For internal use only; represents the current configuration file being used by the Listening Service
+        test:
+          type: string
+          description: For internal use only; represents the test configuration file being used by the Listening Service
+      description: An experimental grouping for User Experience A/B Testing
   securitySchemes:
     oauth2:
       type: oauth2
@@ -746,3 +752,6 @@ components:
 externalDocs:
   description: Learn more at the NPR One Developer Center
   url: https://dev.npr.org/guide/services/identity
+x-refined-from:
+- npr-authorization-openapi-original.yml
+- npr-identity-openapi-original.yml

@@ -1,13 +1,13 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: NPR Identity Service Authorization API
-  description: The entry point to user-specific information
-  termsOfService: https://dev.npr.org/guide/prerequisites/terms-of-use
+  title: Npr Authorization API
+  version: '2'
   contact:
     name: NPR One Enterprise Team
     url: https://dev.npr.org
     email: NPROneEnterprise@npr.org
-  version: '2'
+  termsOfService: https://dev.npr.org/guide/prerequisites/terms-of-use
+  description: 'Operations tagged Authorization across 2 of this provider''s published API definitions: npr-authorization-openapi-original.yml, npr-identity-openapi-original.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://identity.api.npr.org/
 tags:
@@ -124,6 +124,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SimpleError'
+    servers:
+    - url: https://identity.api.npr.org/
   /v2/authorize:
     get:
       tags:
@@ -244,6 +246,8 @@ paths:
             text/html:
               schema:
                 $ref: '#/components/schemas/SimpleError'
+    servers:
+    - url: https://identity.api.npr.org/
   /v2/device:
     post:
       tags:
@@ -310,6 +314,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SimpleError'
+    servers:
+    - url: https://identity.api.npr.org/
   /v2/token/revoke:
     post:
       tags:
@@ -405,6 +411,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SimpleError'
+    servers:
+    - url: https://identity.api.npr.org/
 components:
   schemas:
     DeviceCodeData:
@@ -436,20 +444,6 @@ components:
           description: The number of seconds the client application should maintain between requests to the /token endpoint
           format: int32
           default: 5
-    SimpleError:
-      required:
-      - message
-      - type
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing the error that occurred
-        type:
-          type: string
-          description: A short string representing the type of error that occurred
-          default: error
-      description: A simple representation of an error result from an API call, rarely used; in most cases we still return a Collection.doc+JSON document for errors
     AccessTokenData:
       required:
       - access_token
@@ -473,6 +467,20 @@ components:
         refresh_token:
           type: string
           description: The refresh token that can be used to obtain a new access token if the old one expires; if a refresh token is returned, it is the client's responsibility to securely cache it for future use.
+    SimpleError:
+      required:
+      - message
+      - type
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the error that occurred
+        type:
+          type: string
+          description: A short string representing the type of error that occurred
+          default: error
+      description: A simple representation of an error result from an API call, rarely used; in most cases we still return a Collection.doc+JSON document for errors
   securitySchemes:
     oauth2:
       type: oauth2
@@ -489,3 +497,6 @@ components:
 externalDocs:
   description: Learn more at the NPR One Developer Center
   url: https://dev.npr.org/guide/services/identity
+x-refined-from:
+- npr-authorization-openapi-original.yml
+- npr-identity-openapi-original.yml
