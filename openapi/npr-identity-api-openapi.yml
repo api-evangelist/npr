@@ -1,13 +1,13 @@
 openapi: 3.2.0
 info:
-  title: Npr Identity API
-  version: '2'
+  title: NPR Service Identity API
+  description: The entry point to user-specific information
+  termsOfService: https://dev.npr.org/guide/prerequisites/terms-of-use
   contact:
     name: NPR One Enterprise Team
     url: https://dev.npr.org
     email: NPROneEnterprise@npr.org
-  termsOfService: https://dev.npr.org/guide/prerequisites/terms-of-use
-  description: 'Operations tagged Identity across 2 of this provider''s published API definitions: npr-authorization-openapi-original.yml, npr-identity-openapi-original.yml. Each path carries the servers of the definition it was published in.'
+  version: '2'
 servers:
 - url: https://identity.api.npr.org/
 tags:
@@ -206,8 +206,6 @@ paths:
       security:
       - oauth2:
         - identity.write
-    servers:
-    - url: https://identity.api.npr.org/
   /v2/stations:
     put:
       tags:
@@ -353,13 +351,11 @@ paths:
       - oauth2:
         - identity.write
       x-codegen-request-body-name: body
-    servers:
-    - url: https://identity.api.npr.org/
   /v2/following:
     post:
       tags:
       - Identity
-      summary: NPR Update the following status of the logged-in user for a particular aggregation
+      summary: NPR Update the following status of the logged-in user for a particular…
       description: After a successful call, this returns a User document with an updated list of affiliations.
       operationId: postFollowing
       parameters:
@@ -493,8 +489,6 @@ paths:
       - oauth2:
         - identity.write
       x-codegen-request-body-name: body
-    servers:
-    - url: https://identity.api.npr.org/
 components:
   schemas:
     Algolia:
@@ -506,22 +500,60 @@ components:
           type: string
           description: A search API key for this user
       description: Parameters for querying the Algolia Search SDK for content
-    Error:
+    Cohort:
       required:
-      - code
+      - id
+      - name
       type: object
       properties:
-        code:
-          type: integer
-          description: The error code
-          format: int32
-        text:
+        id:
           type: string
-          description: The error description
-        debug:
+          description: A short ID for this cohort; ignored on a PUT
+        name:
           type: string
-          description: Additional debug information if debug mode is turned on
-      description: A serialized version of any error encountered when processing this request
+          description: A text string identifying the cohort, useful for metrics; ignored on a PUT
+        public:
+          type: string
+          description: For internal use only; represents the current configuration file being used by the Listening Service
+        test:
+          type: string
+          description: For internal use only; represents the test configuration file being used by the Listening Service
+      description: An experimental grouping for User Experience A/B Testing
+    CollectionDocument:
+      required:
+      - attributes
+      - errors
+      - href
+      - items
+      - links
+      - version
+      type: object
+      properties:
+        version:
+          type: string
+          description: The version of the Collection.Doc+JSON spec being used
+          default: '1.0'
+        href:
+          type: string
+          description: A URL representation of the resource; should generally be ignored by clients unless noted otherwise
+        attributes:
+          type: object
+          properties: {}
+        items:
+          type: array
+          items:
+            type: object
+            properties: {}
+        links:
+          type: object
+          properties: {}
+        errors:
+          type: array
+          description: A list of encountered errors, ignored on POST, PUT
+          items:
+            type: object
+            properties: {}
+      description: Base Collection.Doc+JSON output
     Organization:
       required:
       - call
@@ -560,23 +592,6 @@ components:
           items:
             type: string
       description: A station that a user has an affiliation with
-    UserDocument:
-      allOf:
-      - $ref: '#/components/schemas/CollectionDocument'
-      - type: object
-        properties:
-          items:
-            type: array
-            description: Not used, ignored on a PUT
-            items:
-              type: object
-              properties: {}
-          links:
-            type: object
-            properties: {}
-            description: A list of links, not used by the Identity Service; ignored on a PUT
-          attributes:
-            $ref: '#/components/schemas/UserData'
     ErrorDocument:
       description: A Collection.doc+JSON representation of an error result from an API call
       allOf:
@@ -641,6 +656,22 @@ components:
           description: Whether or not the user is following the aggregation. When changing affiliation status, the client is expected to toggle this value and then send the entire object back.
           default: false
       description: A program (aggregation) that a given user has shown an affiliation with
+    Error:
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The error code
+          format: int32
+        text:
+          type: string
+          description: The error description
+        debug:
+          type: string
+          description: Additional debug information if debug mode is turned on
+      description: A serialized version of any error encountered when processing this request
     UserData:
       required:
       - algolia
@@ -682,60 +713,23 @@ components:
           type: string
           description: Internal use only. User's total listening time across all platforms.
       description: Object; see description of a user object below
-    CollectionDocument:
-      required:
-      - attributes
-      - errors
-      - href
-      - items
-      - links
-      - version
-      type: object
-      properties:
-        version:
-          type: string
-          description: The version of the Collection.Doc+JSON spec being used
-          default: '1.0'
-        href:
-          type: string
-          description: A URL representation of the resource; should generally be ignored by clients unless noted otherwise
-        attributes:
-          type: object
-          properties: {}
-        items:
-          type: array
+    UserDocument:
+      allOf:
+      - $ref: '#/components/schemas/CollectionDocument'
+      - type: object
+        properties:
           items:
+            type: array
+            description: Not used, ignored on a PUT
+            items:
+              type: object
+              properties: {}
+          links:
             type: object
             properties: {}
-        links:
-          type: object
-          properties: {}
-        errors:
-          type: array
-          description: A list of encountered errors, ignored on POST, PUT
-          items:
-            type: object
-            properties: {}
-      description: Base Collection.Doc+JSON output
-    Cohort:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: A short ID for this cohort; ignored on a PUT
-        name:
-          type: string
-          description: A text string identifying the cohort, useful for metrics; ignored on a PUT
-        public:
-          type: string
-          description: For internal use only; represents the current configuration file being used by the Listening Service
-        test:
-          type: string
-          description: For internal use only; represents the test configuration file being used by the Listening Service
-      description: An experimental grouping for User Experience A/B Testing
+            description: A list of links, not used by the Identity Service; ignored on a PUT
+          attributes:
+            $ref: '#/components/schemas/UserData'
   securitySchemes:
     oauth2:
       type: oauth2
@@ -752,6 +746,3 @@ components:
 externalDocs:
   description: Learn more at the NPR One Developer Center
   url: https://dev.npr.org/guide/services/identity
-x-refined-from:
-- npr-authorization-openapi-original.yml
-- npr-identity-openapi-original.yml

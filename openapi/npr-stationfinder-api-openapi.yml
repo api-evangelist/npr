@@ -347,137 +347,6 @@ paths:
                 $ref: '#/components/schemas/ErrorDocument'
 components:
   schemas:
-    StationNetworkTierTwoData:
-      required:
-      - id
-      - name
-      - usesInheritance
-      type: object
-      properties:
-        id:
-          pattern: ^\d{1,4}$
-          type: string
-          description: The unique identifier of a tier 2 organization in the network
-        name:
-          type: string
-          description: The display name for a tier 2 organization in the network
-        usesInheritance:
-          type: boolean
-          description: Whether or not this station inherits from a parent organization, also referred to as a network
-        tier3:
-          type: array
-          description: One or more stations that are hierarchical children of this organization
-          items:
-            $ref: '#/components/schemas/StationNetworkTierThreeData'
-      description: Metadata about a tier 2 organization in the network, if this station is part of a network
-    StationPodcastsLink:
-      description: A link to an audio podcast or podcast feed related to the station
-      allOf:
-      - $ref: '#/components/schemas/StationLink'
-      - required:
-        - typeId
-        type: object
-        properties:
-          typeId:
-            type: string
-            description: An identifier for the type of link
-            default: '9'
-            enum:
-            - '9'
-    StationLinks:
-      required:
-      - brand
-      type: object
-      properties:
-        brand:
-          type: array
-          description: One or more links to a web page for the station
-          items:
-            $ref: '#/components/schemas/StationBrandLink'
-        donation:
-          type: array
-          description: One or more links to audio files related to this station
-          items:
-            $ref: '#/components/schemas/StationDonationLink'
-        podcasts:
-          type: array
-          description: One or more links to podcasts related to this station
-          items:
-            $ref: '#/components/schemas/StationPodcastsLink'
-        streams:
-          type: array
-          description: One or more links to audio streams related to the station
-          items:
-            $ref: '#/components/schemas/StationStreamsLink'
-        related:
-          type: array
-          description: One or more links to miscellaneous related content for the station; these typically are not present, and clients should generally not need to use any of these
-          items:
-            $ref: '#/components/schemas/StationRelatedLink'
-    StationData:
-      required:
-      - brand
-      - eligibility
-      - guid
-      - network
-      - orgId
-      type: object
-      properties:
-        orgId:
-          pattern: ^\d{1,4}$
-          type: string
-          description: The system's unique ID for this station, used across NPR One Microservices and NPR's other APIs
-        guid:
-          pattern: ^[0-9a-f]{32}$
-          type: string
-          description: The system's internal unique identifier for a station, not typically used by other APIs or consumers
-        brand:
-          $ref: '#/components/schemas/StationBrandData'
-        eligibility:
-          $ref: '#/components/schemas/StationEligibilityData'
-        network:
-          $ref: '#/components/schemas/StationNetworkData'
-        newscast:
-          $ref: '#/components/schemas/StationNewscastData'
-    StationStreamsLink:
-      description: A link to an audio stream related to the station
-      allOf:
-      - $ref: '#/components/schemas/StationLink'
-      - required:
-        - typeId
-        type: object
-        properties:
-          typeId:
-            type: string
-            description: An identifier for the type of stream
-            default: '10'
-            enum:
-            - '10'
-            - '11'
-            - '12'
-            - '13'
-          isPrimaryStream:
-            type: boolean
-            description: Whether or not this stream is considered the station's primary stream
-            default: true
-    StationNetworkTierThreeData:
-      required:
-      - id
-      - name
-      - usesInheritance
-      type: object
-      properties:
-        id:
-          pattern: ^\d{1,4}$
-          type: string
-          description: The unique identifier of a tier 3 organization in the network
-        name:
-          type: string
-          description: The display name for a tier 3 organization in the network
-        usesInheritance:
-          type: boolean
-          description: Whether or not this station inherits from a parent organization, also referred to as a network
-      description: Metadata about a tier 3 organization in the network, if this station is part of a network
     StationBrandData:
       required:
       - marketCity
@@ -517,83 +386,98 @@ components:
           type: string
           description: The state that the station is most closely associated with. This may or may not be the state the station is licensed in and it may or may not be the state that the station or the station's antenna is located in.
       description: An associative array of brand-related metadata for this station
-    AbstractCDocLink:
+    StationData:
+      required:
+      - brand
+      - eligibility
+      - guid
+      - network
+      - orgId
+      type: object
+      properties:
+        orgId:
+          pattern: ^\d{1,4}$
+          type: string
+          description: The system's unique ID for this station, used across NPR One Microservices and NPR's other APIs
+        guid:
+          pattern: ^[0-9a-f]{32}$
+          type: string
+          description: The system's internal unique identifier for a station, not typically used by other APIs or consumers
+        brand:
+          $ref: '#/components/schemas/StationBrandData'
+        eligibility:
+          $ref: '#/components/schemas/StationEligibilityData'
+        network:
+          $ref: '#/components/schemas/StationNetworkData'
+        newscast:
+          $ref: '#/components/schemas/StationNewscastData'
+    StationNetworkTierThreeData:
+      required:
+      - id
+      - name
+      - usesInheritance
+      type: object
+      properties:
+        id:
+          pattern: ^\d{1,4}$
+          type: string
+          description: The unique identifier of a tier 3 organization in the network
+        name:
+          type: string
+          description: The display name for a tier 3 organization in the network
+        usesInheritance:
+          type: boolean
+          description: Whether or not this station inherits from a parent organization, also referred to as a network
+      description: Metadata about a tier 3 organization in the network, if this station is part of a network
+    StationLink:
+      description: A link related to the station
       allOf:
       - $ref: '#/components/schemas/AbstractLink'
       - required:
-        - content-type
+        - typeName
         type: object
         properties:
-          content-type:
+          guid:
+            pattern: ^[0-9a-f]{32}$
             type: string
-            description: The MIME type of the response of this link
-    Error:
+            description: The system's internal unique identifier for a link, not typically used by consumers
+          typeName:
+            type: string
+            description: The semantic name corresponding to the `typeId`
+          title:
+            type: string
+            description: The link text, provided by the station, for the URL
+            default: ''
+    StationLinks:
       required:
-      - code
+      - brand
       type: object
       properties:
-        code:
-          type: integer
-          description: The error code
-          format: int32
-        text:
-          type: string
-          description: The error description
-        debug:
-          type: string
-          description: Additional debug information if debug mode is turned on
-      description: A serialized version of any error encountered when processing this request
-    AbstractLink:
-      required:
-      - href
-      type: object
-      properties:
-        href:
-          type: string
-          description: The link to be followed
-          format: uri
-    StationListDocument:
-      description: A collection of stations close to you or filtered by search criteria
-      allOf:
-      - $ref: '#/components/schemas/CollectionDocument'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/StationSearchMetaData'
+        brand:
+          type: array
+          description: One or more links to a web page for the station
           items:
-            type: array
-            description: A list of stations
-            items:
-              $ref: '#/components/schemas/StationDocument'
-          links:
-            type: object
-            properties: {}
-            description: Not used
-    ErrorDocument:
-      description: A Collection.doc+JSON representation of an error result from an API call
-      allOf:
-      - $ref: '#/components/schemas/CollectionDocument'
-      - type: object
-        properties:
-          attributes:
-            type: object
-            properties: {}
-            description: Ignore; will be empty for errors
+            $ref: '#/components/schemas/StationBrandLink'
+        donation:
+          type: array
+          description: One or more links to audio files related to this station
           items:
-            type: array
-            description: Ignore; will be empty for errors
-            items:
-              type: object
-              properties: {}
-          links:
-            type: object
-            properties: {}
-            description: Ignore; will be empty for errors
-          errors:
-            type: array
-            description: A list of encountered errors, ignored on POST, PUT
-            items:
-              $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/StationDonationLink'
+        podcasts:
+          type: array
+          description: One or more links to podcasts related to this station
+          items:
+            $ref: '#/components/schemas/StationPodcastsLink'
+        streams:
+          type: array
+          description: One or more links to audio streams related to the station
+          items:
+            $ref: '#/components/schemas/StationStreamsLink'
+        related:
+          type: array
+          description: One or more links to miscellaneous related content for the station; these typically are not present, and clients should generally not need to use any of these
+          items:
+            $ref: '#/components/schemas/StationRelatedLink'
     StationEligibilityData:
       required:
       - format
@@ -629,52 +513,32 @@ components:
           - '12'
           - '15'
       description: An associative array of eligibility-related metadata for this station
-    StationRelatedLink:
-      description: A link to miscellaneous related content for the station; these typically are not present, and clients should generally not need to use these
-      allOf:
-      - $ref: '#/components/schemas/StationLink'
-      - required:
-        - typeId
-        type: object
-        properties:
-          typeId:
-            type: string
-            description: An identifier for the type of link
-    StationBrandLink:
-      description: A link to a web page, logo, or audio file related to the branding of the station
-      allOf:
-      - $ref: '#/components/schemas/AbstractCDocLink'
-      - required:
-        - rel
-        type: object
-        properties:
-          rel:
-            type: string
-            description: A short string identifier describing the way the way the link relates to the document
-            default: homepage
-            enum:
-            - homepage
-            - logo
-            - small-logo
-            - hello-id-audio
-            - station-message-audio
-            - twitter
-            - facebook
-    StationNewscastData:
+    Error:
       required:
-      - id
-      - recency
+      - code
       type: object
       properties:
-        id:
-          pattern: ^\d{1,4}$
-          type: string
-          description: The ID of the newscast that should be played for this station; this is handled internally by other microservices such as the NPR One Listening Service, so this field should typically not be used by consumers
-        recency:
+        code:
           type: integer
-          description: How often the newscast should be played, in minutes; a value of `null` implies no information is available, and sensible defaults should be used
+          description: The error code
           format: int32
-      description: Metadata about the newscast for this station; newscasts are handled internally by other microservices such as the NPR One Listening Service, so this data should typically not be used by consumers
+        text:
+          type: string
+          description: The error description
+        debug:
+          type: string
+          description: Additional debug information if debug mode is turned on
+      description: A serialized version of any error encountered when processing this request
+    AbstractCDocLink:
+      allOf:
+      - $ref: '#/components/schemas/AbstractLink'
+      - required:
+        - content-type
+        type: object
+        properties:
+          content-type:
+            type: string
+            description: The MIME type of the response of this link
     StationNetworkTierOneData:
       required:
       - id
@@ -708,22 +572,81 @@ components:
           items:
             $ref: '#/components/schemas/StationNetworkTierTwoData'
       description: Metadata about the top-level organization in the network, if this station is part of a network
-    StationNetworkData:
-      required:
-      - currentOrgId
-      - usesInheritance
-      type: object
-      properties:
-        currentOrgId:
-          pattern: ^\d{1,4}$
-          type: string
-          description: The current station being viewed. Client applications should generally ignore this field.
-        usesInheritance:
-          type: boolean
-          description: Whether or not the current station inherits from a parent organization, also referred to as a network
-        tier1:
-          $ref: '#/components/schemas/StationNetworkTierOneData'
-      description: Metadata about the network, if this station is part of a network
+    StationDocument:
+      allOf:
+      - $ref: '#/components/schemas/CollectionDocument'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/StationData'
+          items:
+            type: array
+            description: Not used
+            items:
+              type: object
+              properties: {}
+          links:
+            $ref: '#/components/schemas/StationLinks'
+    StationPodcastsLink:
+      description: A link to an audio podcast or podcast feed related to the station
+      allOf:
+      - $ref: '#/components/schemas/StationLink'
+      - required:
+        - typeId
+        type: object
+        properties:
+          typeId:
+            type: string
+            description: An identifier for the type of link
+            default: '9'
+            enum:
+            - '9'
+    StationStreamsLink:
+      description: A link to an audio stream related to the station
+      allOf:
+      - $ref: '#/components/schemas/StationLink'
+      - required:
+        - typeId
+        type: object
+        properties:
+          typeId:
+            type: string
+            description: An identifier for the type of stream
+            default: '10'
+            enum:
+            - '10'
+            - '11'
+            - '12'
+            - '13'
+          isPrimaryStream:
+            type: boolean
+            description: Whether or not this stream is considered the station's primary stream
+            default: true
+    ErrorDocument:
+      description: A Collection.doc+JSON representation of an error result from an API call
+      allOf:
+      - $ref: '#/components/schemas/CollectionDocument'
+      - type: object
+        properties:
+          attributes:
+            type: object
+            properties: {}
+            description: Ignore; will be empty for errors
+          items:
+            type: array
+            description: Ignore; will be empty for errors
+            items:
+              type: object
+              properties: {}
+          links:
+            type: object
+            properties: {}
+            description: Ignore; will be empty for errors
+          errors:
+            type: array
+            description: A list of encountered errors, ignored on POST, PUT
+            items:
+              $ref: '#/components/schemas/Error'
     StationDonationLink:
       description: A link to a pledge page for the station
       allOf:
@@ -741,63 +664,83 @@ components:
             - '27'
             - '28'
             - '29'
-    StationDocument:
+    AbstractLink:
+      required:
+      - href
+      type: object
+      properties:
+        href:
+          type: string
+          description: The link to be followed
+          format: uri
+    StationListDocument:
+      description: A collection of stations close to you or filtered by search criteria
       allOf:
       - $ref: '#/components/schemas/CollectionDocument'
       - type: object
         properties:
           attributes:
-            $ref: '#/components/schemas/StationData'
+            $ref: '#/components/schemas/StationSearchMetaData'
           items:
             type: array
-            description: Not used
+            description: A list of stations
             items:
-              type: object
-              properties: {}
+              $ref: '#/components/schemas/StationDocument'
           links:
-            $ref: '#/components/schemas/StationLinks'
-    StationSearchMetaData:
+            type: object
+            properties: {}
+            description: Not used
+    StationNewscastData:
+      required:
+      - id
+      - recency
       type: object
       properties:
-        query:
+        id:
+          pattern: ^\d{1,4}$
           type: string
-          description: The search terms used in the original request
-        city:
+          description: The ID of the newscast that should be played for this station; this is handled internally by other microservices such as the NPR One Listening Service, so this field should typically not be used by consumers
+        recency:
+          type: integer
+          description: How often the newscast should be played, in minutes; a value of `null` implies no information is available, and sensible defaults should be used
+          format: int32
+      description: Metadata about the newscast for this station; newscasts are handled internally by other microservices such as the NPR One Listening Service, so this data should typically not be used by consumers
+    StationNetworkData:
+      required:
+      - currentOrgId
+      - usesInheritance
+      type: object
+      properties:
+        currentOrgId:
+          pattern: ^\d{1,4}$
           type: string
-          description: The city searched for in the original request
-        state:
-          type: string
-          description: The state searched for in the original request
-        lat:
-          type: number
-          description: The latitude parameter used in the original request
-          format: float
-        lon:
-          type: number
-          description: The longitude parameter in the original request
-          format: float
-        countryCode:
-          type: string
-          description: The country where the original request originated, as determined by geolocation. The countryCode is in ISO 3166-1 numeric format
-    StationLink:
-      description: A link related to the station
+          description: The current station being viewed. Client applications should generally ignore this field.
+        usesInheritance:
+          type: boolean
+          description: Whether or not the current station inherits from a parent organization, also referred to as a network
+        tier1:
+          $ref: '#/components/schemas/StationNetworkTierOneData'
+      description: Metadata about the network, if this station is part of a network
+    StationBrandLink:
+      description: A link to a web page, logo, or audio file related to the branding of the station
       allOf:
-      - $ref: '#/components/schemas/AbstractLink'
+      - $ref: '#/components/schemas/AbstractCDocLink'
       - required:
-        - typeName
+        - rel
         type: object
         properties:
-          guid:
-            pattern: ^[0-9a-f]{32}$
+          rel:
             type: string
-            description: The system's internal unique identifier for a link, not typically used by consumers
-          typeName:
-            type: string
-            description: The semantic name corresponding to the `typeId`
-          title:
-            type: string
-            description: The link text, provided by the station, for the URL
-            default: ''
+            description: A short string identifier describing the way the way the link relates to the document
+            default: homepage
+            enum:
+            - homepage
+            - logo
+            - small-logo
+            - hello-id-audio
+            - station-message-audio
+            - twitter
+            - facebook
     CollectionDocument:
       required:
       - attributes
@@ -833,6 +776,63 @@ components:
             type: object
             properties: {}
       description: Base Collection.Doc+JSON output
+    StationSearchMetaData:
+      type: object
+      properties:
+        query:
+          type: string
+          description: The search terms used in the original request
+        city:
+          type: string
+          description: The city searched for in the original request
+        state:
+          type: string
+          description: The state searched for in the original request
+        lat:
+          type: number
+          description: The latitude parameter used in the original request
+          format: float
+        lon:
+          type: number
+          description: The longitude parameter in the original request
+          format: float
+        countryCode:
+          type: string
+          description: The country where the original request originated, as determined by geolocation. The countryCode is in ISO 3166-1 numeric format
+    StationRelatedLink:
+      description: A link to miscellaneous related content for the station; these typically are not present, and clients should generally not need to use these
+      allOf:
+      - $ref: '#/components/schemas/StationLink'
+      - required:
+        - typeId
+        type: object
+        properties:
+          typeId:
+            type: string
+            description: An identifier for the type of link
+    StationNetworkTierTwoData:
+      required:
+      - id
+      - name
+      - usesInheritance
+      type: object
+      properties:
+        id:
+          pattern: ^\d{1,4}$
+          type: string
+          description: The unique identifier of a tier 2 organization in the network
+        name:
+          type: string
+          description: The display name for a tier 2 organization in the network
+        usesInheritance:
+          type: boolean
+          description: Whether or not this station inherits from a parent organization, also referred to as a network
+        tier3:
+          type: array
+          description: One or more stations that are hierarchical children of this organization
+          items:
+            $ref: '#/components/schemas/StationNetworkTierThreeData'
+      description: Metadata about a tier 2 organization in the network, if this station is part of a network
   securitySchemes:
     oauth2:
       type: oauth2
