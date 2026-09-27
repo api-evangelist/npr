@@ -421,29 +421,6 @@ components:
           description: A short string representing the type of error that occurred
           default: error
       description: A simple representation of an error result from an API call, rarely used; in most cases we still return a Collection.doc+JSON document for errors
-    AccessTokenData:
-      required:
-      - access_token
-      - expires_in
-      - token_type
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: The access token to use for all future calls
-        token_type:
-          type: string
-          description: Identifies the type of token returned. At this time, this field always has the value `Bearer`.
-          enum:
-          - Bearer
-          - MAC
-        expires_in:
-          type: integer
-          description: The remaining lifetime of the access token (in seconds)
-          format: int32
-        refresh_token:
-          type: string
-          description: The refresh token that can be used to obtain a new access token if the old one expires; if a refresh token is returned, it is the client's responsibility to securely cache it for future use.
     DeviceCodeData:
       required:
       - device_code
@@ -473,6 +450,29 @@ components:
           description: The number of seconds the client application should maintain between requests to the /token endpoint
           format: int32
           default: 5
+    AccessTokenData:
+      required:
+      - access_token
+      - expires_in
+      - token_type
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The access token to use for all future calls
+        token_type:
+          type: string
+          description: Identifies the type of token returned. At this time, this field always has the value `Bearer`.
+          enum:
+          - Bearer
+          - MAC
+        expires_in:
+          type: integer
+          description: The remaining lifetime of the access token (in seconds)
+          format: int32
+        refresh_token:
+          type: string
+          description: The refresh token that can be used to obtain a new access token if the old one expires; if a refresh token is returned, it is the client's responsibility to securely cache it for future use.
   securitySchemes:
     oauth2:
       type: oauth2

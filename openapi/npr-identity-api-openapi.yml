@@ -491,132 +491,6 @@ paths:
       x-codegen-request-body-name: body
 components:
   schemas:
-    Algolia:
-      required:
-      - apiKey
-      type: object
-      properties:
-        apiKey:
-          type: string
-          description: A search API key for this user
-      description: Parameters for querying the Algolia Search SDK for content
-    Cohort:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          description: A short ID for this cohort; ignored on a PUT
-        name:
-          type: string
-          description: A text string identifying the cohort, useful for metrics; ignored on a PUT
-        public:
-          type: string
-          description: For internal use only; represents the current configuration file being used by the Listening Service
-        test:
-          type: string
-          description: For internal use only; represents the test configuration file being used by the Listening Service
-      description: An experimental grouping for User Experience A/B Testing
-    CollectionDocument:
-      required:
-      - attributes
-      - errors
-      - href
-      - items
-      - links
-      - version
-      type: object
-      properties:
-        version:
-          type: string
-          description: The version of the Collection.Doc+JSON spec being used
-          default: '1.0'
-        href:
-          type: string
-          description: A URL representation of the resource; should generally be ignored by clients unless noted otherwise
-        attributes:
-          type: object
-          properties: {}
-        items:
-          type: array
-          items:
-            type: object
-            properties: {}
-        links:
-          type: object
-          properties: {}
-        errors:
-          type: array
-          description: A list of encountered errors, ignored on POST, PUT
-          items:
-            type: object
-            properties: {}
-      description: Base Collection.Doc+JSON output
-    Organization:
-      required:
-      - call
-      - city
-      - displayName
-      - id
-      type: object
-      properties:
-        id:
-          type: string
-          description: Some unique identifier for the organization for the user
-        serviceId:
-          type: string
-          description: Some unique identifier for the user's organization's primary service, or null if the org has no services
-        displayName:
-          type: string
-          description: A short displayable text field for the end user, strictly text; ignored on PUT
-        call:
-          type: string
-          description: Station call letters
-        city:
-          type: string
-          description: A short description of the station's main market city
-        logo:
-          type: string
-          description: Station logo image url
-        smallLogo:
-          type: string
-          description: Station logo image url
-        donationUrl:
-          type: string
-          description: Station donation page URL
-        notif_org:
-          type: array
-          description: The topic in Firebase Cloud Messaging to which the device should subscribe if it supports notifications and the user wants notifications about their localized station.
-          items:
-            type: string
-      description: A station that a user has an affiliation with
-    ErrorDocument:
-      description: A Collection.doc+JSON representation of an error result from an API call
-      allOf:
-      - $ref: '#/components/schemas/CollectionDocument'
-      - type: object
-        properties:
-          attributes:
-            type: object
-            properties: {}
-            description: Ignore; will be empty for errors
-          items:
-            type: array
-            description: Ignore; will be empty for errors
-            items:
-              type: object
-              properties: {}
-          links:
-            type: object
-            properties: {}
-            description: Ignore; will be empty for errors
-          errors:
-            type: array
-            description: A list of encountered errors, ignored on POST, PUT
-            items:
-              $ref: '#/components/schemas/Error'
     Affiliation:
       required:
       - following
@@ -656,6 +530,44 @@ components:
           description: Whether or not the user is following the aggregation. When changing affiliation status, the client is expected to toggle this value and then send the entire object back.
           default: false
       description: A program (aggregation) that a given user has shown an affiliation with
+    Organization:
+      required:
+      - call
+      - city
+      - displayName
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Some unique identifier for the organization for the user
+        serviceId:
+          type: string
+          description: Some unique identifier for the user's organization's primary service, or null if the org has no services
+        displayName:
+          type: string
+          description: A short displayable text field for the end user, strictly text; ignored on PUT
+        call:
+          type: string
+          description: Station call letters
+        city:
+          type: string
+          description: A short description of the station's main market city
+        logo:
+          type: string
+          description: Station logo image url
+        smallLogo:
+          type: string
+          description: Station logo image url
+        donationUrl:
+          type: string
+          description: Station donation page URL
+        notif_org:
+          type: array
+          description: The topic in Firebase Cloud Messaging to which the device should subscribe if it supports notifications and the user wants notifications about their localized station.
+          items:
+            type: string
+      description: A station that a user has an affiliation with
     Error:
       required:
       - code
@@ -672,6 +584,58 @@ components:
           type: string
           description: Additional debug information if debug mode is turned on
       description: A serialized version of any error encountered when processing this request
+    CollectionDocument:
+      required:
+      - attributes
+      - errors
+      - href
+      - items
+      - links
+      - version
+      type: object
+      properties:
+        version:
+          type: string
+          description: The version of the Collection.Doc+JSON spec being used
+          default: '1.0'
+        href:
+          type: string
+          description: A URL representation of the resource; should generally be ignored by clients unless noted otherwise
+        attributes:
+          type: object
+          properties: {}
+        items:
+          type: array
+          items:
+            type: object
+            properties: {}
+        links:
+          type: object
+          properties: {}
+        errors:
+          type: array
+          description: A list of encountered errors, ignored on POST, PUT
+          items:
+            type: object
+            properties: {}
+      description: Base Collection.Doc+JSON output
+    UserDocument:
+      allOf:
+      - $ref: '#/components/schemas/CollectionDocument'
+      - type: object
+        properties:
+          items:
+            type: array
+            description: Not used, ignored on a PUT
+            items:
+              type: object
+              properties: {}
+          links:
+            type: object
+            properties: {}
+            description: A list of links, not used by the Identity Service; ignored on a PUT
+          attributes:
+            $ref: '#/components/schemas/UserData'
     UserData:
       required:
       - algolia
@@ -713,23 +677,59 @@ components:
           type: string
           description: Internal use only. User's total listening time across all platforms.
       description: Object; see description of a user object below
-    UserDocument:
+    ErrorDocument:
+      description: A Collection.doc+JSON representation of an error result from an API call
       allOf:
       - $ref: '#/components/schemas/CollectionDocument'
       - type: object
         properties:
+          attributes:
+            type: object
+            properties: {}
+            description: Ignore; will be empty for errors
           items:
             type: array
-            description: Not used, ignored on a PUT
+            description: Ignore; will be empty for errors
             items:
               type: object
               properties: {}
           links:
             type: object
             properties: {}
-            description: A list of links, not used by the Identity Service; ignored on a PUT
-          attributes:
-            $ref: '#/components/schemas/UserData'
+            description: Ignore; will be empty for errors
+          errors:
+            type: array
+            description: A list of encountered errors, ignored on POST, PUT
+            items:
+              $ref: '#/components/schemas/Error'
+    Algolia:
+      required:
+      - apiKey
+      type: object
+      properties:
+        apiKey:
+          type: string
+          description: A search API key for this user
+      description: Parameters for querying the Algolia Search SDK for content
+    Cohort:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: A short ID for this cohort; ignored on a PUT
+        name:
+          type: string
+          description: A text string identifying the cohort, useful for metrics; ignored on a PUT
+        public:
+          type: string
+          description: For internal use only; represents the current configuration file being used by the Listening Service
+        test:
+          type: string
+          description: For internal use only; represents the test configuration file being used by the Listening Service
+      description: An experimental grouping for User Experience A/B Testing
   securitySchemes:
     oauth2:
       type: oauth2
