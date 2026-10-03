@@ -407,20 +407,6 @@ paths:
                 $ref: '#/components/schemas/SimpleError'
 components:
   schemas:
-    SimpleError:
-      required:
-      - message
-      - type
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing the error that occurred
-        type:
-          type: string
-          description: A short string representing the type of error that occurred
-          default: error
-      description: A simple representation of an error result from an API call, rarely used; in most cases we still return a Collection.doc+JSON document for errors
     DeviceCodeData:
       required:
       - device_code
@@ -450,6 +436,20 @@ components:
           description: The number of seconds the client application should maintain between requests to the /token endpoint
           format: int32
           default: 5
+    SimpleError:
+      required:
+      - message
+      - type
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the error that occurred
+        type:
+          type: string
+          description: A short string representing the type of error that occurred
+          default: error
+      description: A simple representation of an error result from an API call, rarely used; in most cases we still return a Collection.doc+JSON document for errors
     AccessTokenData:
       required:
       - access_token
