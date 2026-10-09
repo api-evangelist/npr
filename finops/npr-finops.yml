@@ -107,7 +107,6 @@ apis:
 unitEconomics:
   - name: Engineering cost per integrated app
     metric: integration_engineer_hours * loaded_rate / integrated_apps
-    target: minimize via shared client libraries
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
